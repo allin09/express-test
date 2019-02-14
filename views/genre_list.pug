@@ -1,0 +1,8 @@
+extends layout
+block content
+  h1= title
+  ul
+    each el in genreList
+      li: a(href=el.url)= el.name
+    else 
+      li no data

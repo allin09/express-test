@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  h1 登陆
+
+  form(method="post", action="/user/login", onsubmit="login();return false;")
+    .form-group
+      label(for="username") 用户名:
+      input#username.form-control(type="text", placeholder="用户名", name="username", required="true")
+    .form-group
+      label(for="password") 密码:
+      input#password.form-control(type="text", placeholder="密码", name="password", required="true")
+    .form-group
+      button.btn.btn-primary(type='submit') 提交
+      a.btn.btn-warning(href="/user/register", style="margin-left:10px") 注册
+    .form-group
+      a.btn.btn-danger(href='/auth/github') github
+  script.
+    async function login() {
+      const url = `/user/login`
+      let body={
+        username: username.value,
+        password:password.value
+      }
+      body = JSON.stringify(body)
+      const headers ={
+        'content-type':'application/json'
+      }
+      const {token} = await fetch(url,{method:'post',body,headers}).then(res=>res.json())
+      if(token){
+        localStorage.setItem('token', token)
+        location.href = '/'
+      }
+      // 阻止表单跳转
+      return false
+    }

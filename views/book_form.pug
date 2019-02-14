@@ -1,0 +1,31 @@
+extends layout
+block content
+  h1= title
+  form(method="post", action="")
+    .form-group
+      label(for="title") 标题:
+      input#first_name.form-control(type="text", placeholder="标题", name="title", required="true", value=(book&&book.title||''))
+    .form-group
+      lable(for="summary") 简介:
+      input#last_name.form-control(type="text", placeholder='简介', name="summary", required='true', value=(book&&book.summary|| ''))
+    .form-group
+      label(for='isbn') 版本号:
+      input#birth.form-control(type='text', placeholder='版本号', name='isbn', required='true', value=(book&&book.isbn||''))
+    .form-group
+      label(for='author') 作者:
+      select#age.form-control(type='select', placeholder='请选择一个作者', name='author', required='true', value=(book&&book.author||''))
+        for author in authors
+          option(value=author._id)= author.name
+    .form-group
+      label 类型:
+      .form-control2
+        for genre in genres
+          .item(style="display:inline;padding-right:10px;")
+            input.checkbox-input(type='checkbox',name="genre",id=genre._id, value=genre._id,checked=genre.checked)
+            label(for=genre._id)= genre.name
+    button.btn.btn-primary(type="submit") 提交
+
+  if errors
+    ul
+      for error in errors
+        li!= JSON.stringify(error)

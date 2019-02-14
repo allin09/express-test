@@ -1,0 +1,12 @@
+extends layout
+block content
+  h1= title
+  h3= authorList
+  ul
+    each el in authorList
+      li
+        a(href=el.url)= '姓名：'+el.name   
+        | 生日：!{el.birthDay}
+        | 年龄：!{el.age}
+    else 
+      li no data

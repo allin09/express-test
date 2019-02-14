@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="https://cdn.jsdelivr.net/npm/vue")
+    
+  body
+    .fluid
+      .row
+        - var menus = [{href:"/genre",label:'类别'}, {href:'/author',label:'作者'}, {href:'/book',label:'书名'}, {href:'/bookInstance',label:'书籍'} ]
+        .col-sm-4 !{menu}
+          ul.sidebar-nav
+            each el in menus
+              li: a(href=el.href)= el.label
+            else
+             li 没有内容
+          hr
+          ul#actions
+            li(v-for="el in actions", :key="el.href"): a(:href="el.href", v-text="el.label")
+        .col-sm-8
+          block content
+
+  script.
+        var actions = [
+          {href:"/genre/create",label:'添加类别'},
+          {href:'/author/create',label:'添加作者'},
+          {href:'/book/create',label:'添加书名'},
+          {href:'/bookInstance/create',label:'添加书籍'}
+        ]
+        var title = `!{title}`
+        console.error('标题 %s Vue %s', title, Vue)
+        var vm = new Vue({
+          el:'#actions',
+          data:{
+            actions
+          }
+        })

@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  h1 注册
+
+  form(method="post", action="/user/register", onsubmit="return register()")
+    .form-group
+      label(for="username") 用户名:
+      input#username.form-control(type="text", placeholder="用户名", name="username", required="true", value=(user&&user.username||''))
+    .form-group
+      label(for="password") 密码:
+      input#password.form-control(type="text", placeholder="密码", name="password", required="true", value=(user&&user.password||''))
+    .form-group
+      button.btn.btn-primary(type="submit") 提交
+      
+  script.
+    function register() {
+      const url = `/user/register`
+      let body={
+        username: username.value,
+        password:password.value
+      }
+      body = JSON.stringify(body)
+      const headers ={
+        'content-type':'application/json'
+      }
+      fetch(url,{method:'post',body,headers})
+      .then(res=>res.json())
+      .then(({token})=>{
+        if(token){
+          localStorage.setItem('token', token)
+          location.href = '/'
+        }
+      })
+      .catch(err=>{
+        console.error(err)
+      })
+      .finally(function(){
+        console.error('finally')
+      })
+      // 阻止表单跳转
+      return false
+    }

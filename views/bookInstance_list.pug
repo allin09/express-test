@@ -1,0 +1,12 @@
+extends layout
+block content
+  h1= title
+  h3= bookList
+  h4= bookInstanceList
+  ul
+    each el in bookInstanceList
+      li
+        a(href=el.url)= el.book.title
+        |  !{el.imprint}
+    else 
+      li no data

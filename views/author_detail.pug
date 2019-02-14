@@ -1,0 +1,24 @@
+extends layout
+block content
+  h1= title
+    h5= author
+  if author
+    h3 作家：#{author.name}    
+    a(href=('/author/'+author.id+'/update')) 修改 &nbsp; 
+    button.btn.btn-danger.dropdown-toggle(onclick='deleteClick()') 删除
+  else 
+    p 已经被删除
+  script.
+    function deleteClick() {
+      const isConfirm = confirm('是否要删除？')
+      if(!isConfirm)return
+      const url = `#{author && author.url}/delete`
+      const body = `!{JSON.stringify(author)}`
+      fetch(url,{method:"post",body,headers:{'content-type':'application/json'}})
+      .then(data=>data.json())
+      .then(data=>{
+        console.error(data)
+        //- if(data._id)location.href= '/author'
+      })
+      .catch(err=>console.error(err))
+    }

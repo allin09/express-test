@@ -1,0 +1,13 @@
+extends layout
+block content
+  h1= title
+  form(method="post", action="")
+    .form-group
+      label(for="name") 类别:
+      input#name.form-control(type="text", placeholder="幻想，诗歌...", name="name", required="true", value=(genre&&genre.name||''))
+    button.btn.btn-primary(type="submit") 提交
+
+  if errors
+    ul
+      for error in errors
+        li!= JSON.stringify(error)

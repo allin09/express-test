@@ -1,0 +1,10 @@
+extends layout
+block content
+  h1= title
+  h2= bookList
+  ul
+    each el in bookList
+      li
+        a(href=el.url)= el.title
+    else 
+      li no data

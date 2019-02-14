@@ -1,0 +1,19 @@
+extends layout
+block content
+  h1= title
+  form(method="post", action="")
+    .form-group
+      label(for="first_name") 名字:
+      input#first_name.form-control(type="text", placeholder="名字", name="first_name", required="true", value=(author&&author.first_name||''))
+      lable(for="family_name") 姓氏:
+      input#last_name.form-control(type="text", placeholder='姓氏', name="family_name", required='true', value=(author&&author.family_name|| ''))
+      label(for='birth') 生日:
+      input#birth.form-control(type='date', placeholder='生日', name='birth', required='true', value=(author&&author.birthDay||''))
+      label(for='age') 年龄:
+      input#age.form-control(type='number', placeholder='年龄', name='age', required='true', value=(author&&author.age||''))
+    button.btn.btn-primary(type="submit") 提交
+
+  if errors
+    ul
+      for error in errors
+        li!= JSON.stringify(error)
