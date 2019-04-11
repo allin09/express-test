@@ -49,7 +49,7 @@ var authRouter = require('./routes/auth')
 var app = express()
 
 // 链接mongodb
-var mongodbUrl = 'mongodb://127.0.0.1/leone'
+var mongodbUrl = 'mongodb://192.168.100.7/leone'
 mongoose.connect(mongodbUrl, { useNewUrlParser: true, useCreateIndex: true })
 mongoose.Promise = global.Promise
 mongoose.connection.on('error', e => {

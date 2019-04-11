@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  web:
+    build:
+      context: .
+    image: web
+    container_name: web
+    command: nodemon -L
+    # command: 'sh run.sh'
+    volumes:
+      - .:/home/www/express-locallibrary
+      - /home/www/express-locallibrary/node_modules
+    # networks:
+    #   - node_network
+    restart: always
+    ports:
+      - '4000:4000'
+      - '80:4000'
+# networks:
+#   node_network:
