@@ -6,7 +6,11 @@ services:
       context: .
     image: web
     container_name: web
-    command: nodemon -L
+    command:
+      - nodemon
+      - '-L'
+      - '--inspect=0.0.0.0'
+      - './bin/www'
     # command: 'sh run.sh'
     volumes:
       - .:/home/www/express-locallibrary
@@ -17,5 +21,22 @@ services:
     ports:
       - '4000:4000'
       - '80:4000'
+      - '9229:9229'
+    tty: true
+    privileged: true
+    links:
+      - mongo
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    volumes:
+      - ./db:/data/db
+    # ports:
+    # - '27017:27017'
+    expose:
+      - '27017'
 # networks:
 #   node_network:

@@ -10,3 +10,6 @@ dist.zip
 *.log
 yarn.lock
 package-lock.json
+db
+*.pdf
+*.png

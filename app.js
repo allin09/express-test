@@ -11,19 +11,20 @@ const { spawn, fork } = require('child_process')
 // spawn('node', ['./script/child.js'])
 // fork('./script/child.js')
 // 'ping', ['www.baidu.com']
-const spawnObj = spawn('node', ['./script/child.js'], { encoding: 'utf-8' })
-spawnObj.stdout.on('data', function(chunk) {
-  console.log('chunk: ', chunk.toString())
-})
-spawnObj.stderr.on('data', data => {
-  console.log(data)
-})
-spawnObj.on('close', code => {
-  console.log('close code : ' + code)
-})
-spawnObj.on('exit', code => {
-  console.log('exit code : ' + code)
-})
+
+// const spawnObj = spawn('node', ['./script/child.js'], { encoding: 'utf-8' })
+// spawnObj.stdout.on('data', function(chunk) {
+//   console.log('chunk: ', chunk.toString())
+// })
+// spawnObj.stderr.on('data', data => {
+//   console.log(data)
+// })
+// spawnObj.on('close', code => {
+//   console.log('close code : ' + code)
+// })
+// spawnObj.on('exit', code => {
+//   console.log('exit code : ' + code)
+// })
 
 var session = require('express-session')
 var Store = require('connect-mongo')(session)
