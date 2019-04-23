@@ -1,4 +1,4 @@
 # rm -rf node_modules
 # rm package-lock.json
-# npm install
-nodemon -L --inspect ./bin/www
+
+nodemon -L --inspect=0.0.0.0 ./bin/www

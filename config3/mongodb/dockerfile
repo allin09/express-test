@@ -1,0 +1,10 @@
+
+
+FROM mongo
+
+
+COPY ./mongod.conf /etc/mongod.conf
+RUN mkdir -p /data/mongodb{data,log}
+
+EXPOSE 27017
+

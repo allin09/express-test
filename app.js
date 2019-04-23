@@ -50,11 +50,16 @@ var authRouter = require('./routes/auth')
 var app = express()
 
 // 链接mongodb
-var mongodbUrl = 'mongodb://192.168.100.7/leone'
+const host = process.env.DOCKER ? 'mongo' : '0.0.0.0' //192.168.100.7
+var mongodbUrl = `mongodb://${host}/leone`
 mongoose.connect(mongodbUrl, { useNewUrlParser: true, useCreateIndex: true })
 mongoose.Promise = global.Promise
 mongoose.connection.on('error', e => {
-  console.log('mongodb连接错误: %s', e)
+  mongoose.connection.close()
+  console.log('mongodb连接错误:', e)
+})
+mongoose.connection.once('open', () => {
+  console.log('mongodb连接成功！')
 })
 
 global.To = promise => promise.then(data => [null, data]).catch(err => [err])

@@ -6,12 +6,12 @@ services:
       context: .
     image: web
     container_name: web
-    command:
-      - nodemon
-      - '-L'
-      - '--inspect=0.0.0.0'
-      - './bin/www'
-    # command: 'sh run.sh'
+    # command:
+    #   - nodemon
+    #   - '-L'
+    #   - '--inspect=0.0.0.0'
+    #   - './bin/www'
+    command: 'sh run.sh'
     volumes:
       - .:/home/www/express-locallibrary
       - /home/www/express-locallibrary/node_modules
@@ -28,15 +28,30 @@ services:
       - mongo
     depends_on:
       - mongo
+    environment:
+      - DOCKER=1
 
   mongo:
     image: mongo
+    build: config3/mongodb
     container_name: mongo
+    # command: mongod --config /etc/mongod.conf --logpath /data/mongodb/log --dbpath /data/mongodb/data --repair --fork
+    # environment:
+    # - MONGO_INITDB_ROOT_USERNAME=root
+    # - MONGO_INITDB_ROOT_PASSWORD=root
+    # - MONGO_CONFIG_DIR=/etc/
+    # - MONGO_DATA_DIR=/data/mongodb/data
+    # - MONGO_LOG_DIR=/data/mongodb/log
     volumes:
-      - ./db:/data/db
+      # - ./config3/mongodb/mongod.conf:/etc/mongod.conf
+      - /usr/local/var/mongodb
+      # - /usr/local/var/mongodb:/data/mongodb/data
+      # - /usr/local/var/log/mongodb:/data/mongodb/log
+    # expose:
+    #   - '27017'
     # ports:
-    # - '27017:27017'
-    expose:
-      - '27017'
+    #   - '0.0.0.0:27017:27017'
+    tty: true
+    privileged: true
 # networks:
 #   node_network:
