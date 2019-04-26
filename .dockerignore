@@ -1,11 +1,9 @@
 node_modules
 npm-debug.log
 package-lock.json
-db
 *.pdf
 *.png
 *.md
-*.sh
 docker?
 .?
 .DS_Store

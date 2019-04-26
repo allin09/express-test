@@ -1,10 +1,37 @@
 
 
-FROM mongo
+# Pull base image.
+FROM ubuntu
+
+#定义工作目录
+ENV WORK_PATH /usr/local/
+
+#定义mongodb文件夹名称
+ENV MONGODB_PACKAGE_NAME mongodb-linux-x86_64-4.0.9
+# RUN mkdir -vp $WORK_PATH/mongodb/
+#把mongodb安装包从本地电脑复制到工作目录
+COPY $MONGODB_PACKAGE_NAME/ $WORK_PATH/mongodb/
+# RUN ls -la $WORK_PATH/mongodb/
+VOLUME ["/data/db"]
+
+#创建数据库文件目录
+RUN mkdir -p /data/db
+
+#更新
+# RUN apt-get update \
+#     && apt-get install -y \
+#     libssl1.0.0 \
+#     libssl-dev
+
+#把libssl.so.1.0.0装上，否则无法运行mongodb
 
 
-COPY ./mongod.conf /etc/mongod.conf
-RUN mkdir -p /data/mongodb{data,log}
+#把mongodb的bin目录加入到PATH环境变量中
+ENV PATH=$WORK_PATH/mongodb/bin:$PATH
 
+#连接端口
 EXPOSE 27017
-
+# ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+# CMD ["bin/bash"]
+# CMD [ "mongod","--bind_ip_all" ]
+CMD [ "bin/sh", "-c", "mongod --bind_ip_all" ]
