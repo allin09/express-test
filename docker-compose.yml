@@ -12,7 +12,7 @@ services:
     #   - '-L'
     #   - '--inspect=0.0.0.0'
     #   - './bin/www'
-    command: 'sh run.sh'
+    # command: 'sh run.sh'
     volumes:
       - .:/home/www/express-locallibrary
       - /home/www/express-locallibrary/node_modules
@@ -32,6 +32,11 @@ services:
       - DOCKER=1
     networks:
       - docker_network
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '2000k'
+        max-file: '30'
 
   mongo:
     image: mongo
@@ -53,8 +58,8 @@ services:
     # - /usr/local/var/log/mongodb:/tmp/mongodb/log
     expose:
       - '27017'
-    ports:
-      - '0.0.0.0:27017:27017'
+    # ports:
+    #   - '0.0.0.0:27017:27017'
     tty: true
     privileged: true
     networks:

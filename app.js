@@ -56,10 +56,10 @@ mongoose.connect(mongodbUrl, { useNewUrlParser: true, useCreateIndex: true })
 mongoose.Promise = global.Promise
 mongoose.connection.on('error', e => {
   mongoose.connection.close()
-  console.log('mongodb连接错误:', e)
+  console.log('mongodb connect error:', e)
 })
 mongoose.connection.once('open', () => {
-  console.log('mongodb连接成功！')
+  console.log('mongodb connect success!')
 })
 
 global.To = promise => promise.then(data => [null, data]).catch(err => [err])

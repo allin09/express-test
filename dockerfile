@@ -6,7 +6,10 @@ FROM ubuntu
 # FROM node:$node_version
 
 LABEL name="express-docker" version="1.0.0"
-
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+ENV LANG C.UTF-8
 ENV project_dir=/home/www/express-locallibrary/ mongo_db=/tmp/mongodb/data
 
 RUN mkdir -p $project_dir
@@ -70,5 +73,5 @@ EXPOSE 4000
 # ENTRYPOINT ["/bin/sh"]
 
 ENTRYPOINT ["/usr/bin/dumb-init"]
-
 # CMD ["bash"]
+CMD npm run dev
