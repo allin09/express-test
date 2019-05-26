@@ -7,7 +7,7 @@
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "debug": "nodemon -L --inspect=0.0.0.0 ./bin/www",
-    "docker": "docker-compose up -d --build",
+    "docker": "docker-compose down --remove-orphans&&docker-compose up -d --build",
     "log": "docker-compose logs -f"
   },
   "dependencies": {

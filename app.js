@@ -50,7 +50,7 @@ var authRouter = require('./routes/auth')
 var app = express()
 
 // 链接mongodb
-const host = process.env.DOCKER ? 'mongo' : '0.0.0.0' //192.168.100.7
+const host = process.env.DOCKER ? 'customise_mongo' : '0.0.0.0' //192.168.100.7
 var mongodbUrl = `mongodb://${host}/leone`
 mongoose.connect(mongodbUrl, { useNewUrlParser: true, useCreateIndex: true })
 mongoose.Promise = global.Promise

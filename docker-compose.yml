@@ -2,11 +2,11 @@ version: '3.1'
 networks:
   docker_network:
 services:
-  web:
+  express_web:
     build:
       context: .
-    image: web
-    container_name: web
+    image: express-web
+    container_name: express-web
     # command:
     #   - nodemon
     #   - '-L'
@@ -21,13 +21,12 @@ services:
       - '4000:4000'
       - '80:4000'
       - '9229:9229'
-      - '28017:28017'
     tty: true
     privileged: true
     links:
-      - mongo
+      - customise_mongo
     depends_on:
-      - mongo
+      - customise_mongo
     environment:
       - DOCKER=1
     networks:
@@ -38,28 +37,28 @@ services:
         max-size: '2000k'
         max-file: '30'
 
-  mongo:
+  customise_mongo:
     image: mongo
-    build: config3/mongodb
-    container_name: mongo
-    # command: mongod
-    # --config /etc/mongod.conf
+    # image: customise-mongo
+    # build: config3/mongodb
+    container_name: customise-mongo
+    command: mongod --config /etc/mongod.conf
     # --logpath /tmp/mongodb/log --dbpath /tmp/mongodb/data --repair --fork --auth
-    # environment:
-    # - MONGO_INITDB_ROOT_USERNAME=root
-    # - MONGO_INITDB_ROOT_PASSWORD=root
-    # - MONGO_CONFIG_DIR=/etc/
-    # - MONGO_DATA_DIR=/tmp/mongodb/data
-    # - MONGO_LOG_DIR=/tmp/mongodb/log
-    # volumes:
-    # - $PWD/config3/mongodb/mongod.conf:/etc/mongod.conf
-    # - /usr/local/var/mongodb
-    # - /usr/local/var/mongodb:/tmp/mongodb/data
-    # - /usr/local/var/log/mongodb:/tmp/mongodb/log
-    expose:
-      - '27017'
-    # ports:
-    #   - '0.0.0.0:27017:27017'
+    environment:
+      # - MONGO_INITDB_ROOT_USERNAME=root
+      # - MONGO_INITDB_ROOT_PASSWORD=root
+      # - MONGO_CONFIG_DIR=/etc/
+      - MONGO_DATA_DIR=/tmp/mongodb/data
+      - MONGO_LOG_DIR=/tmp/mongodb/log
+    volumes:
+      - $PWD/config3/mongodb/mongod.conf:/etc/mongod.conf
+      # - /usr/local/var/mongodb
+      - $PWD/config3/mongodb/data:/tmp/mongodb/data
+      - $PWD/config3/mongodb/log:/tmp/mongodb/log
+    # expose:
+    #   - '27017'
+    ports:
+      - '0.0.0.0:28017:27017'
     tty: true
     privileged: true
     networks:

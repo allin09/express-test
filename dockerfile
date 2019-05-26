@@ -29,8 +29,8 @@ RUN apt-get update \
     && apt-get clean \
     && apt-get autoclean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-    
-    
+
+
 
 # RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
 # USER root
@@ -51,7 +51,7 @@ RUN npm install -g nodemon \
     && npm install
 
 COPY . $project_dir
-COPY ./config3/mongodb/mongod.conf /etc/mongod.conf
+COPY ./config3/mongodb/mongod.conf /etc/mongo.conf
 
 # RUN ls -al .
 # USER root

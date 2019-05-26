@@ -10,6 +10,6 @@ dist.zip
 *.log
 yarn.lock
 package-lock.json
-db
+config3/mongodb/data
+config3/mongodb/log
 *.pdf
-*.png
